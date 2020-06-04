@@ -6,12 +6,12 @@ import (
 )
 
 //
-func GetQueue() (*amqp.Connection, *amqp.Channel, *amqp.Queue) {
+func GetQueue() (*amqp.Connection, *amqp.Channel, *amqp.Queue, error) {
 	conn, err := amqp.Dial(os.Getenv("RABBITMQ_HOST"))
 
 	if err != nil {
 		panic(err)
-		//return nil, nil, nil
+		return nil, nil, nil, err
 	}
 	ch, err := conn.Channel()
 	if err != nil {
@@ -23,5 +23,5 @@ func GetQueue() (*amqp.Connection, *amqp.Channel, *amqp.Queue) {
 	if err != nil {
 		panic(err)
 	}
-	return conn, ch, &queue
+	return conn, ch, &queue, err
 }
