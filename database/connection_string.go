@@ -7,8 +7,8 @@ import (
 )
 
 // return database connection string per DB_ENGINE property in .env file or OS environment variables
-func getConnectionString(dbEngine string) string {
-
+func getConnectionString() string {
+	var dbEngine string = os.Getenv("DB_ENGINE")
 	switch strings.TrimSpace(dbEngine) {
 
 	case "postgres":
