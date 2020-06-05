@@ -42,7 +42,9 @@ func (c *Client) Consume(queueName string) {
 		if err := decode.Decode(&message); err != nil {
 			utils.FailOnError(err, err.Error())
 		}
-		db.Create(&message)
+		if message.Valid() {
+			db.Create(&message)
+		}
 	}
 	fmt.Scanln(&a)
 }
