@@ -3,11 +3,13 @@ package models
 import (
 	"encoding/gob"
 	"fmt"
+	"github.com/jinzhu/gorm"
 	"strings"
 	"time"
 )
 
 type Message struct {
+	gorm.Model
 	Name      string    `json:"name"`
 	Value     string    `json:"value"`
 	TimeStamp time.Time `json:"time_stamp"`
@@ -28,11 +30,17 @@ func (m *Message) Valid() bool {
 // Expecting to be used only during initialization, it panics if the mapping
 // between types and names is not a bijection.
 func init() {
-	gob.Register(&Message{})
+	gob.Register(Message{})
 }
 
 // implement string function
 func (m *Message) String() string {
 	return fmt.Sprintf("[name=%s , value= %s, timestamp= %s]",
 		m.Name, m.Value, m.TimeStamp)
+}
+
+type Foo struct {
+	gorm.Model
+	Name string
+	H    int64
 }

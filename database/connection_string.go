@@ -14,6 +14,7 @@ var (
 
 // return database connection string per DB_ENGINE property in .env file or OS environment variables
 func getConnectionString() string {
+
 	var dbEngine string = os.Getenv("DB_ENGINE")
 	switch strings.TrimSpace(dbEngine) {
 
