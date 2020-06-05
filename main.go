@@ -1,15 +1,26 @@
 package main
 
 import (
-	"flag"
+	"./models"
+	"bytes"
+	"encoding/gob"
 	"github.com/joho/godotenv"
-)
-
-var (
-	queue = flag.String("queue", "hello-world", "queue name")
+	"time"
 )
 
 func main() {
-	godotenv.Load()
-	flag.Parse()
+	_ = godotenv.Load()
+	buf := new(bytes.Buffer)
+	enc := gob.NewEncoder(buf)
+
+	for {
+		reading := models.Message{
+			Name:      "Msg1",
+			Value:     "Hu",
+			TimeStamp: time.Now(),
+		}
+		buf.Reset()
+		_ = enc.Encode(&reading)
+
+	}
 }

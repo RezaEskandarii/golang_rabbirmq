@@ -6,8 +6,3 @@ type QueueListener struct {
 	conn *amqp.Connection
 	ch   *amqp.Channel
 }
-
-func NewQueueListener() *QueueListener {
-	ql := QueueListener{}
-
-}

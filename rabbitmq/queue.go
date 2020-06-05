@@ -1,27 +1,21 @@
 package rabbitmq
 
 import (
+	"../utils"
 	"github.com/streadway/amqp"
-	"os"
 )
 
-//
-func GetQueue() (*amqp.Connection, *amqp.Channel, *amqp.Queue, error) {
-	conn, err := amqp.Dial(os.Getenv("RABBITMQ_HOST"))
-
-	if err != nil {
-		panic(err)
-		return nil, nil, nil, err
-	}
+func GetChannel(url string) (*amqp.Connection, *amqp.Channel) {
+	conn, err := amqp.Dial(url)
+	utils.FailOnError(err, "Failed in connection")
 	ch, err := conn.Channel()
-	if err != nil {
-		panic(err)
-	}
-	queue, err := ch.QueueDeclare("Hello",
-		false, false,
-		false, false, nil)
-	if err != nil {
-		panic(err)
-	}
-	return conn, ch, &queue, err
+	utils.FailOnError(err, "Failed to get channel")
+	return conn, ch
+}
+
+func GetQueue(name string, ch *amqp.Channel) *amqp.Queue {
+	q, err := ch.QueueDeclare(name,
+		false, false, false, false, nil)
+	utils.FailOnError(err, "Failed to declare queue")
+	return &q
 }
