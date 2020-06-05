@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+var (
+	Null = ""
+)
+
 type Message struct {
 	gorm.Model
 	Name      string    `json:"name"`
@@ -17,7 +21,7 @@ type Message struct {
 
 // check message validation
 func (m *Message) Valid() bool {
-	if strings.TrimSpace(m.Name) == "" && strings.TrimSpace(m.Value) == "" {
+	if strings.TrimSpace(m.Name) == Null && strings.TrimSpace(m.Value) == Null {
 		return false
 	}
 	return true
@@ -37,10 +41,4 @@ func init() {
 func (m *Message) String() string {
 	return fmt.Sprintf("[name=%s , value= %s, timestamp= %s]",
 		m.Name, m.Value, m.TimeStamp)
-}
-
-type Foo struct {
-	gorm.Model
-	Name string
-	H    int64
 }

@@ -8,6 +8,7 @@ func Persist(entity interface{}) {
 	db.Model(entity).Save(entity)
 }
 
+// migrate models
 func init() {
 	db, _ := GetConnection()
 	defer db.Close()

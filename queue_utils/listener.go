@@ -15,6 +15,7 @@ type QueueListener struct {
 	sources    map[string]<-chan amqp.Delivery
 }
 
+// return new queue listener
 func NewQueueListener() *QueueListener {
 	qListener := QueueListener{
 		sources: make(map[string]<-chan amqp.Delivery),

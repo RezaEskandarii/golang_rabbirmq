@@ -25,5 +25,5 @@ func GetConnection() (*gorm.DB, error) {
 	// SetConnMaxLifetime sets the maximum amount of time a connection may be reused.
 	con.DB().SetConnMaxLifetime(time.Hour)
 
-	return con, nil
+	return con.Unscoped(), nil
 }
