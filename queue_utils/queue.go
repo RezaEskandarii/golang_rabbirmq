@@ -1,4 +1,4 @@
-package rabbitmq
+package queue_utils
 
 import (
 	"../utils"

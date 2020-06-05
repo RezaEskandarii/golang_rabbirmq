@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/gob"
+	"fmt"
 	"strings"
 	"time"
 )
@@ -28,4 +29,10 @@ func (m *Message) Valid() bool {
 // between types and names is not a bijection.
 func init() {
 	gob.Register(&Message{})
+}
+
+// implement string function
+func (m *Message) String() string {
+	return fmt.Sprintf("[name=%s , value= %s, timestamp= %s]",
+		m.Name, m.Value, m.TimeStamp)
 }
